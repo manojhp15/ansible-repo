@@ -1,0 +1,14 @@
+---
+- hosts: all
+  become: true
+  connection: ssh
+  gather_facts: no
+  tasks:
+    - name: Install telnet
+      apt: pkg=telnet state=latest
+      tags:
+        - packages
+    - name: Verifying telnet installation
+      raw: apt list --installed |grep telnet > /root/pkg.log
+      tags:
+        - check
